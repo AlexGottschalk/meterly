@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  #gpio:
+
+  #web-ui:
+
+  #rest-api:
+
+  #timeseries-db:
+
+volumes:
+  timeseries-data:
