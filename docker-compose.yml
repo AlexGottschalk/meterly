@@ -1,0 +1,27 @@
+version: '0.1'
+services:
+
+  data-acquisition:
+    image: python:3
+    container_name: meterly-data-acquisition
+    working_dir: /usr/src/app
+    volumes:
+      - ./python:/usr/src/app
+    command: python ./hello-world.py
+
+  data-storage:
+    image: influxdb:latest
+    container_name: meterly-data-storage
+    restart: always
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb-volume:/var/lib/influxdb2
+
+volumes:
+  influxdb-volume:
+    external: true
+
+# https://hub.docker.com/_/influxdb
+# https://hub.docker.com/_/python
+# https://dev.to/project42/install-grafana-influxdb-telegraf-using-docker-compose-56e9
