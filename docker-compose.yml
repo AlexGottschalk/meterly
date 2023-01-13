@@ -2,12 +2,14 @@ version: '0.1'
 services:
 
   data-acquisition:
-    image: python:3
+    build: ./python
     container_name: meterly-data-acquisition
+    privileged: true
+    # devices:
+    #   - /dev/gpiomem
     working_dir: /usr/src/app
     volumes:
       - ./python:/usr/src/app
-    command: python ./hello-world.py
 
   data-storage:
     image: influxdb:latest
@@ -18,10 +20,27 @@ services:
     volumes:
       - influxdb-volume:/var/lib/influxdb2
 
+  data-monitoring:
+    image: telegraf
+    container_name: meterly-data-monitoring
+    restart: always
+    volumes:
+     - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+networks:
+  monitoring:
+
 volumes:
   influxdb-volume:
     external: true
 
+# https://hub.docker.com/_/telegraf/
 # https://hub.docker.com/_/influxdb
 # https://hub.docker.com/_/python
 # https://dev.to/project42/install-grafana-influxdb-telegraf-using-docker-compose-56e9
+# https://stackoverflow.com/questions/30059784/docker-access-to-raspberry-pi-gpio-pins
+
+# docker compose up --remove-orphans
+
+# user: pi
+# password: raspberry
