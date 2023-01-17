@@ -1,45 +1,44 @@
 version: '3.7'
 services:
 
-  data-storage:
+  influxdb:
     image: influxdb:latest
-    container_name: meterly-data-storage
-    restart: always
+    env_file:
+      - influxdb.env
+    volumes:
+      - influxdbv:/var/lib/influxdb2:rw
     ports:
       - 8086:8086
-    volumes:
-      - influxdb-volume:/var/lib/influxdb2
-
-  data-monitoring:
-    image: telegraf
-    container_name: meterly-data-monitoring
     restart: always
+
+  telegraf:
+    image: telegraf:latest
+    depends_on:
+      - influxdb
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    env_file:
+      - influxdb.env
+    restart: always
+
+  python:
+    build: ./python
     depends_on:
-      data-storage:
+      influxdb:
         condition: service_started
 
-  data-acquisition:
-    build: ./python
-    container_name: meterly-data-acquisition
     privileged: true
     # devices:
     #   - /dev/gpiomem
     # working_dir: /usr/src/app
     # volumes:
-    #   - ./python:/usr/src/app
-    depends_on:
-      data-storage:
-        condition: service_completed_successfully
-        # https://stackoverflow.com/questions/71060072/docker-compose-depends-on-with-condition-invalid-type-should-be-an-array
+    #   - ./python:/usr/src/app        
 
 networks:
   monitoring:
 
 volumes:
-  influxdb-volume:
-    external: true
+  influxdbv:
 
 # https://docs.docker.com/compose/env-file/
 # https://hub.docker.com/_/telegraf/
@@ -48,6 +47,7 @@ volumes:
 # https://www.influxdata.com/blog/running-influxdb-2-0-and-telegraf-using-docker/
 # https://dev.to/project42/install-grafana-influxdb-telegraf-using-docker-compose-56e9
 # https://stackoverflow.com/questions/30059784/docker-access-to-raspberry-pi-gpio-pins
+# https://stackoverflow.com/questions/71060072/docker-compose-depends-on-with-condition-invalid-type-should-be-an-array
 
 # docker compose up --remove-orphans
 # docker compose up -d --build --remove-orphans
