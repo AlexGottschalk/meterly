@@ -1,6 +1,8 @@
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
+# https://www.influxdata.com/blog/getting-started-python-influxdb/
+
 bucket =    "<my-bucket>"
 org =       "<my-org>"
 token =     "<my-token>"
