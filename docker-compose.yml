@@ -24,7 +24,7 @@ services:
   python:
     build: ./python
     depends_on:
-      influxdb:
+      telegraf:
         condition: service_started
 
     privileged: true
