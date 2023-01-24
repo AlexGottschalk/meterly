@@ -6,6 +6,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./*ini ./
+COPY ./*conf ./
 COPY ./*py ./
 # CMD ["python","hello-world.py"]
 CMD ["python","write.py"]
