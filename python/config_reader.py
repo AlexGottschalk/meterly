@@ -20,8 +20,15 @@ class ConfigReader:
             print(f"Error reading configuration file '{config_file}':", e)
             raise SystemExit
 
-    def get(self, section, option, fallback=None):
+    def get(self, section, key, fallback=None, type=str):
         try:
-            return self.config.get(section, option)
-        except (configparser.NoOptionError, configparser.NoSectionError):
+            if type == int:
+                return self.config.getint(section, key)
+            elif type == float:
+                return self.config.getfloat(section, key)
+            elif type == bool:
+                return self.config.getboolean(section, key)
+            else:
+                return self.config.get(section, key)
+        except (configparser.NoOptionError, configparser.NoSectionError, ValueError):
             return fallback
