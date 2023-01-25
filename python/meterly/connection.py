@@ -1,6 +1,6 @@
 from influxdb_client import InfluxDBClient
 
-class InfluxDB:
+class InfluxDBConnection:
     def __init__(self, url, token, org, bucket='my_bucket'):
         self.url = url
         self.token = token

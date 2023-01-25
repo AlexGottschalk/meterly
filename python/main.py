@@ -1,8 +1,5 @@
 import argparse
-from config_reader import ConfigReader
-from influxdb import InfluxDB
-from data_point import DataPoint
-from marking_counter import MarkingCounter
+from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
 def main():
     #region Parse arguments
@@ -20,7 +17,7 @@ def main():
     token = config.get('influxdb', 'token', 'my_token')
     org = config.get('influxdb', 'org', 'my_org')
     bucket = config.get('influxdb', 'bucket', 'my_bucket')
-    influx = InfluxDB(url, token, org, bucket)
+    connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
 
     #region Setup the data (to be written to the database)
@@ -42,7 +39,7 @@ def main():
     counter.set_on_periodic_job(
         lambda count :
             data_point.set_turns(count),
-            influx.write_data([data_point.get_point])
+            connection.write_data([data_point.get_point])
         , True)
     #endregion
 
