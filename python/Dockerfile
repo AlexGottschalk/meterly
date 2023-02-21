@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./*conf ./
 COPY ./*py ./
 COPY ./meterly ./meterly
-CMD ["python","write.py"]
+CMD ["python","main.py"]
 
 # docker build -t python_hello_world .
