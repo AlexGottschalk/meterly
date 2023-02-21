@@ -26,6 +26,10 @@ services:
     depends_on:
       telegraf:
         condition: service_started
+    resources:
+      limits:
+        cpus: '0.1'
+        memory: 50M
     devices:
       - /dev/gpiomem:/dev/gpiomem
     privileged: true
