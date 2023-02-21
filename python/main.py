@@ -1,5 +1,4 @@
 import argparse
-from signal import pause
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
 def main():
@@ -13,6 +12,7 @@ def main():
     config = ConfigReader(args.config)
     #endregion
 
+    print("Setup the database connection")
     #region Setup the database connection
     url = config.get('influxdb', 'url', 'http://localhost:8086')
     token = config.get('influxdb', 'token', 'my_token')
@@ -21,6 +21,7 @@ def main():
     connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
 
+    print("Setup the data (to be written to the database)")
     #region Setup the data (to be written to the database)
     measurement = config.get('data_point', 'measurement', 'my_measurement')
     location = config.get('data_point', 'location', 'my_location')
@@ -29,6 +30,7 @@ def main():
     data_point = DataPoint(measurement, location, sensor_type, power_per_turn)
     #endregion
     
+    print("Setup the readout of the analog electricity meter")
     #region Setup the readout of the analog electricity meter
     pin = config.get('marking_counter', 'pin', 17, int)
     sample_rate = config.get('marking_counter', 'sample_rate', 1000, int)
@@ -36,6 +38,7 @@ def main():
     counter = MarkingCounter(pin, sample_rate, interval)
     #endregion
     
+    print("Record the number of revolutions")
     #region Record the number of revolutions
     counter.set_on_marking_detected(
         lambda count :

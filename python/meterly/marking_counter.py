@@ -1,4 +1,5 @@
 from gpiozero import LineSensor
+from signal import pause
 from apscheduler.schedulers.background import BackgroundScheduler
 
 class MarkingCounter:
@@ -16,13 +17,16 @@ class MarkingCounter:
         self.on_periodic_job = None
 
         self.count = 0
+        pause()
         
     def marking_detected(self):
+        print('Line detected')
         self.count += 1
         if callable(self.on_marking_detected):
             self.on_marking_detected(self.count)
             
     def marking_passed(self):
+        print('No line detected')
         if callable(self.on_marking_passed):
             self.on_marking_passed(self.count)
     
