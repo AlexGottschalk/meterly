@@ -19,6 +19,8 @@ class MarkingCounter:
         
     def marking_detected(self):
         print('Line detected')
+        print(self.on_marking_detected)
+        print(callable(self.on_marking_detected))
         self.count += 1
         if callable(self.on_marking_detected):
             self.on_marking_detected(self.count)
