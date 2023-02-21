@@ -26,10 +26,12 @@ services:
     depends_on:
       telegraf:
         condition: service_started
-
-    privileged: true
     devices:
-      - /dev/gpiomem
+      - "/dev/gpiomem:/dev/gpiomem"
+
+    # privileged: true
+    # devices:
+    #  - /dev/gpiomem
     # working_dir: /usr/src/app
     # volumes:
     #   - ./python:/usr/src/app        
