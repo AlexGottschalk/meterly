@@ -27,7 +27,10 @@ services:
       telegraf:
         condition: service_started
     devices:
-      - "/dev/gpiomem"
+      - /dev/gpiomem:/dev/gpiomem:ro
+    privileged: true
+    volumes:
+      - /sys/class/gpio:/sys/class/gpio
 
     # privileged: true
     # devices:
