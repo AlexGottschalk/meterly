@@ -12,7 +12,7 @@ sensor.when_no_line = lambda: print('No line detected')
 # t1.start()
 # t2.start()
 
-signal.sigwait(sensor.when_line)
+signal.sigwait()
 
 print("LineSensor")
 #time.sleep(10)
