@@ -28,8 +28,8 @@ services:
         condition: service_started
 
     privileged: true
-    # devices:
-    #   - /dev/gpiomem
+    devices:
+      - /dev/gpiomem
     # working_dir: /usr/src/app
     # volumes:
     #   - ./python:/usr/src/app        
