@@ -11,8 +11,18 @@ def main():
     args = parser.parse_args()
     #endregion
     
+    print("Setup the configuration file reader")
     #region Setup the configuration file reader
     config = ConfigReader(args.config)
+    #endregion
+    
+    print("Setup the database connection")
+    #region Setup the database connection
+    url = config.get('influxdb', 'url', 'http://localhost:8086')
+    token = config.get('influxdb', 'token', 'my_token')
+    org = config.get('influxdb', 'org', 'my_org')
+    bucket = config.get('influxdb', 'bucket', 'my_bucket')
+    connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
 
 if __name__ == '__main__':
