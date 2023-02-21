@@ -11,6 +11,9 @@ class InfluxDBConnection:
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
     def write_data(self, data):
+        print(self.url)
+        print(self.token)
+        print(self.org)
+        print(self.bucket)
+                
         self.write_api.write(bucket=self.bucket, record=data)
-        print('write_data')
-        print(data)
