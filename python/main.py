@@ -40,7 +40,7 @@ def main():
     counter.set_on_marking_detected(
         lambda count :
             (data_point.set_turns(count),
-            connection.write_data([data_point.get_point]))
+            connection.write_data(data_point.get_point))
         , True)
     #endregion
 
