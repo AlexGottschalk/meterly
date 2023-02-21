@@ -7,10 +7,7 @@ class InfluxDBConnection:
         self.org = org
         self.bucket = bucket
         self.client = InfluxDBClient(url=self.url, token=self.token, org=self.org)
-        self.write_api = self.client.write_api()
+        self.write_api = self.client.write_api(write_options=self.write_api.SYNCHRONOUS)
 
-    def write_data(self, data, sync_=True):
-        if sync_:
-            self.write_api.write(data, bucket=self.bucket, write_options=self.write_api.SYNCHRONOUS)
-        else:
-            self.write_api.write(data, bucket=self.bucket)
+    def write_data(self, data):
+        self.write_api.write(data, bucket=self.bucket)
