@@ -36,10 +36,9 @@ def main():
     counter = MarkingCounter(pin, sample_rate, interval)
     #endregion
     
-    #region Request data
+    #region Record function
     def marking_detected(count):
-        data_point.set_turns(count)
-        point = data_point.get_point()
+        point = data_point.set_turns(count).get_point()
         connection.write_data(point)
     #endregion
     

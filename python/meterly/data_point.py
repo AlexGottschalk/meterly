@@ -10,6 +10,7 @@ class DataPoint:
 
     def set_turns(self, turns):
         self.point.field("turns", turns)
+        return self
         
     def get_point(self):
         return self.point
