@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./*conf ./
 COPY ./*py ./
 COPY ./meterly ./meterly
-CMD ["python","main.py"]
+CMD ["python","hello-world.py"]
