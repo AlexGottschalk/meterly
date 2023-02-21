@@ -6,7 +6,7 @@ GPIO.setup(17, GPIO.IN)
 
 try:
     while True:
-        if GPIO.input(17) is 1:
+        if GPIO.input(17) == 1:
             print("I saw the sign!")
         else: 
             print("Waiting")
