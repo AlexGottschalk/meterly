@@ -39,14 +39,13 @@ def main():
     #region Request data
     def marking_detected(count):
         data_point.set_turns(count)
-        connection.write_data(data_point.get_point)
+        point = data_point.get_point()
+        connection.write_data(point)
     #endregion
     
     #region Record the number of revolutions    
     counter.set_on_marking_detected(marking_detected, True)
     #endregion
-    
-    
 
 if __name__ == '__main__':
     main()

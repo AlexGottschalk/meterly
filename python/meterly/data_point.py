@@ -12,6 +12,4 @@ class DataPoint:
         self.point.field("turns", turns)
         
     def get_point(self):
-        print('get_point')
-        print(self.point)
         return self.point
