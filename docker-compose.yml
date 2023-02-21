@@ -27,18 +27,7 @@ services:
       telegraf:
         condition: service_started
     devices:
-      - /dev/gpiomem:/dev/gpiomem
-    # privileged: true
-    # volumes:
-    #   - /sys/class/gpio:/sys/class/gpio
-    #   - /sys:/sys
-
-    # privileged: true
-    # devices:
-    #  - /dev/gpiomem
-    # working_dir: /usr/src/app
-    # volumes:
-    #   - ./python:/usr/src/app        
+      - /dev/gpiomem:/dev/gpiomem      
 
 networks:
   monitoring:

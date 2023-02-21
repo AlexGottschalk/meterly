@@ -1,4 +1,5 @@
 import argparse
+import datetime
 from signal import pause
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
@@ -40,6 +41,7 @@ def main():
     def marking_detected(count):
         point = data_point.set_turns(count).get_point()
         connection.write_data(point)
+        print("{}{}".format(datetime.datetime.now(), point))
     #endregion
     
     #region Record the number of revolutions    
