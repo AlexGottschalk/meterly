@@ -36,13 +36,17 @@ def main():
     counter = MarkingCounter(pin, sample_rate, interval)
     #endregion
     
-    #region Record the number of revolutions
-    counter.set_on_marking_detected(
-        lambda count :
-            (data_point.set_turns(count),
-            connection.write_data(data_point.get_point))
-        , True)
+    #region Request data
+    def marking_detected(count):
+        data_point.set_turns(count)
+        connection.write_data(data_point.get_point)
     #endregion
+    
+    #region Record the number of revolutions    
+    counter.set_on_marking_detected(marking_detected, True)
+    #endregion
+    
+    
 
 if __name__ == '__main__':
     main()
