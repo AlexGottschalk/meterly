@@ -10,20 +10,24 @@ class MarkingCounter:
         self.scheduler = BackgroundScheduler()
         self.scheduler.add_job(self.periodic_job, 'interval', seconds=interval)
         self.scheduler.start()
+        
+        self.on_marking_detected = None
+        self.on_marking_passed = None
+        self.on_periodic_job = None
 
         self.count = 0
         
     def marking_detected(self):
         self.count += 1
-        if self.on_marking_detected:
+        if callable(self.on_marking_detected):
             self.on_marking_detected(self.count)
             
     def marking_passed(self):
-        if self.on_marking_passed:
+        if callable(self.on_marking_passed):
             self.on_marking_passed(self.count)
     
     def periodic_job(self):
-        if self.on_periodic_job:
+        if callable(self.on_periodic_job):
             self.on_periodic_job(self.count)
                 
     def set_on_marking_detected(self, fn, reset_count = False):
