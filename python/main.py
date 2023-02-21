@@ -38,8 +38,9 @@ def main():
     #region Record the number of revolutions
     counter.set_on_marking_detected(
         lambda count :
-            data_point.set_turns(count),
-            connection.write_data([data_point.get_point])
+            print(count)
+            #data_point.set_turns(count),
+            #connection.write_data([data_point.get_point])
         , True)
     #endregion
 
