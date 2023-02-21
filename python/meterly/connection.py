@@ -12,3 +12,5 @@ class InfluxDBConnection:
 
     def write_data(self, data):
         self.write_api.write(bucket=self.bucket, record=data)
+        print('write_data')
+        print(data)
