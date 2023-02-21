@@ -4,7 +4,12 @@ import argparse
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
 def main():
-    print("main")
+    print("Parse arguments")
+    #region Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--config', default='python.conf', help='The name of the configuration file.')
+    args = parser.parse_args()
+    #endregion
 
 if __name__ == '__main__':
     print('__main__')
