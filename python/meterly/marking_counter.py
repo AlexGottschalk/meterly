@@ -31,22 +31,22 @@ class MarkingCounter:
             self.on_periodic_job(self.count)
                 
     def set_on_marking_detected(self, fn, reset_count = False):
-        def wrapped_fn(count):
-            fn(count)
+        def wrapped_fn():
+            fn(self.count)
             if reset_count:
                 self.count = 0
         self.on_marking_detected = wrapped_fn
         
     def set_on_marking_passed(self, fn, reset_count = False):
-        def wrapped_fn(count):
-            fn(count)
+        def wrapped_fn():
+            fn(self.count)
             if reset_count:
                 self.count = 0
         self.on_marking_passed = wrapped_fn
         
     def set_on_periodic_job(self, fn, reset_count = False):
-        def wrapped_fn(count):
-            fn(count)
+        def wrapped_fn():
+            fn(self.count)
             if reset_count:
                 self.count = 0
         self.on_periodic_job = wrapped_fn
