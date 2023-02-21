@@ -1,6 +1,5 @@
 print("main.py")
 
-import time
 import argparse
 from signal import pause
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
@@ -55,4 +54,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    time.sleep(10)
+    pause()
