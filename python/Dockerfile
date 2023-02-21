@@ -1,4 +1,4 @@
-FROM python:3-slim-bullseye
+FROM arm64v8/python:3-bullseye
 
 WORKDIR /usr/src/app
 
