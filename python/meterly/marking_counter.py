@@ -18,15 +18,11 @@ class MarkingCounter:
         self.count = 0
         
     def marking_detected(self):
-        print('Line detected')
-        print(self.on_marking_detected)
-        print(callable(self.on_marking_detected))
         self.count += 1
         if callable(self.on_marking_detected):
             self.on_marking_detected(self.count)
             
     def marking_passed(self):
-        print('No line detected')
         if callable(self.on_marking_passed):
             self.on_marking_passed(self.count)
     
@@ -35,7 +31,6 @@ class MarkingCounter:
             self.on_periodic_job(self.count)
                 
     def set_on_marking_detected(self, fn, reset_count = False):
-        print('set_on_marking_detected')
         def wrapped_fn(count):
             fn(count)
             if reset_count:
@@ -43,7 +38,6 @@ class MarkingCounter:
         self.on_marking_detected = wrapped_fn
         
     def set_on_marking_passed(self, fn, reset_count = False):
-        print('set_on_marking_passed')
         def wrapped_fn(count):
             fn(count)
             if reset_count:
