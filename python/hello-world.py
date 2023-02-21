@@ -12,8 +12,8 @@ def loop():
     while True:
         pass
 
-t1 = multiprocessing.Process(target=test())
-t2 = multiprocessing.Process(target=loop())
+t1 = multiprocessing.Process(target=test)
+t2 = multiprocessing.Process(target=loop)
 t1.start()
 t2.start()
 
