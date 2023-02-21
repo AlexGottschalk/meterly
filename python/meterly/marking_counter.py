@@ -20,15 +20,15 @@ class MarkingCounter:
     def marking_detected(self):
         self.count += 1
         if callable(self.on_marking_detected):
-            self.on_marking_detected(self.count)
+            self.on_marking_detected()
             
     def marking_passed(self):
         if callable(self.on_marking_passed):
-            self.on_marking_passed(self.count)
+            self.on_marking_passed()
     
     def periodic_job(self):
         if callable(self.on_periodic_job):
-            self.on_periodic_job(self.count)
+            self.on_periodic_job()
                 
     def set_on_marking_detected(self, fn, reset_count = False):
         def wrapped_fn():
