@@ -33,6 +33,14 @@ def main():
     power_per_turn = config.get('data_point', 'power_per_turn', 75, int)
     data_point = DataPoint(measurement, location, sensor_type, power_per_turn)
     #endregion
+    
+    print("Setup the readout of the analog electricity meter")
+    #region Setup the readout of the analog electricity meter
+    pin = config.get('marking_counter', 'pin', 17, int)
+    sample_rate = config.get('marking_counter', 'sample_rate', 1000, int)
+    interval = config.get('marking_counter', 'interval', 60, int)
+    counter = MarkingCounter(pin, sample_rate, interval)
+    #endregion
 
 if __name__ == '__main__':
     print('__main__')
