@@ -27,7 +27,20 @@ services:
       telegraf:
         condition: service_started
     devices:
-      - /dev/gpiomem:/dev/gpiomem      
+      - /dev/gpiomem:/dev/gpiomem
+  
+  cli:
+    image: influxdb:latest
+    links:
+      - influxdb
+    volumes:
+      - ./influxdbv:/root/.influxdbv
+    entrypoint: ["./entrypoint.sh"]
+    restart: on-failure:10
+    depends_on:
+      influxdb:
+        condition: service_started
+        # https://stackoverflow.com/questions/71854059/how-to-create-adittional-buckets-on-influxdb-docker-initialize
 
 networks:
   monitoring:
