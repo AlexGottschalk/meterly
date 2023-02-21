@@ -1,4 +1,5 @@
 from influxdb_client import InfluxDBClient
+from influxdb_client .client.write_api import SYNCHRONOUS
 
 class InfluxDBConnection:
     def __init__(self, url, token, org, bucket='my_bucket'):
@@ -7,7 +8,7 @@ class InfluxDBConnection:
         self.org = org
         self.bucket = bucket
         self.client = InfluxDBClient(url=self.url, token=self.token, org=self.org)
-        self.write_api = self.client.write_api(write_options=self.write_api.SYNCHRONOUS)
+        self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
 
     def write_data(self, data):
         self.write_api.write(data, bucket=self.bucket)
