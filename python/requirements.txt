@@ -1,3 +1,4 @@
 influxdb-client==1.35.0
+pigpio==1.78
 gpiozero==1.6.2
 APScheduler==3.9.1.post1
