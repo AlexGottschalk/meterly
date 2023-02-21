@@ -24,6 +24,15 @@ def main():
     bucket = config.get('influxdb', 'bucket', 'my_bucket')
     connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
+    
+    print("Setup the data (to be written to the database)")
+    #region Setup the data (to be written to the database)
+    measurement = config.get('data_point', 'measurement', 'my_measurement')
+    location = config.get('data_point', 'location', 'my_location')
+    sensor_type = config.get('data_point', 'sensor_type', 'my_sensor_type')
+    power_per_turn = config.get('data_point', 'power_per_turn', 75, int)
+    data_point = DataPoint(measurement, location, sensor_type, power_per_turn)
+    #endregion
 
 if __name__ == '__main__':
     print('__main__')
