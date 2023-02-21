@@ -14,10 +14,16 @@ def main():
     #endregion
 
     #region Setup the database connection
-    url = config.get('influxdb', 'url', 'http://localhost:8086')
+    url = config.get('influxdb', 'url', 'http://influxdb:8086')
     token = config.get('influxdb', 'token', 'my_token')
     org = config.get('influxdb', 'org', 'my_org')
     bucket = config.get('influxdb', 'bucket', 'my_bucket')
+    
+    print(url)
+    print(token)
+    print(org)
+    print(bucket)
+    
     connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
 
