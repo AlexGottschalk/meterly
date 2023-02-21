@@ -1,3 +1,5 @@
+print("main.py")
+
 import argparse
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
@@ -51,5 +53,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
-main()
