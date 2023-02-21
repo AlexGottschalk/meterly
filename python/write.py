@@ -5,7 +5,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 
 bucket =    "power_consumption_raw"
 org =       "user"
-token =     "cEo3YEeVEVcBU8xca7rnYD3aG8pp8zzI9xCGxPPXyZiezqGRfNti4oaz5x8rK6Tt9q1nPXgy93X-pIHmAuvezA=="
+token =     "12y2f61gk08ouac5yp9WE3e_vSlTIGTiKQ3Al2J3B3V5TAFAn1CiKZxMLiXtEGTrAHAirKGlUAY6LTG1kjTCDQ=="
 url =       "http://influxdb:8086"
 
 from threading import Timer
