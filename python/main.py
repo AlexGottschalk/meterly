@@ -55,5 +55,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-    #pause()
-    input()
+    
+    while True:
+        time.sleep(1)
