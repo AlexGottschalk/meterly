@@ -44,10 +44,6 @@ def main():
             print("Test"))
         , True)
     #endregion
-    
-    #region Pause
-    pause()
-    #endregion
 
 if __name__ == '__main__':
     main()
