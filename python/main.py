@@ -1,4 +1,5 @@
 import argparse
+from signal import pause
 from meterly import ConfigReader, InfluxDBConnection, DataPoint, MarkingCounter
 
 def main():
@@ -41,6 +42,10 @@ def main():
             (data_point.set_turns(count),
             connection.write_data([data_point.get_point]))
         , True)
+    #endregion
+    
+    #region Pause
+    pause()
     #endregion
 
 if __name__ == '__main__':
