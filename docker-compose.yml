@@ -1,10 +1,6 @@
 version: '3.7'
 services:
 
-  migration:
-    build: .
-    command: sh -c "chmod +x ./influxdb/scripts/init.sh"
-
   influxdb:
     image: arm64v8/influxdb:latest
     env_file:
