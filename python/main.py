@@ -20,6 +20,8 @@ def main():
     org = config.get('influxdb', 'org', 'my_org')
     bucket = config.get('influxdb', 'bucket', 'my_bucket')    
     connection = InfluxDBConnection(url, token, org, bucket)
+    
+    print("{}\tInfluxDBConnection(url=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), url, org, bucket))
     #endregion
 
     #region Setup the data (to be written to the database)
@@ -35,6 +37,8 @@ def main():
     sample_rate = config.get('marking_counter', 'sample_rate', 1000, int)
     interval = config.get('marking_counter', 'interval', 60, int)
     counter = MarkingCounter(pin, sample_rate, interval)
+    
+    print("{}\tRaspberryPI(pin=\"{}\" sample_rate=\"{}\" interval=\"{}\")".format(datetime.datetime.now(), pin, sample_rate, interval))
     #endregion
     
     #region Record function
@@ -50,4 +54,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print("{}\tSetup successfully completed: Waiting for sensor signal".format(datetime.datetime.now()))
     pause()
