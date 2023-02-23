@@ -25,9 +25,9 @@ services:
 
   python:
     build: ./python
-    depends_on:
-      influxdb:
-        condition: service_started
+    # depends_on:
+    #   influxdb:
+    #     condition: service_started
     devices:
       - /dev/gpiomem:/dev/gpiomem
 
