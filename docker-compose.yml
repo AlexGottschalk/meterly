@@ -2,8 +2,8 @@ version: '3.7'
 services:
 
   influxdb:
-    # image: arm64v8/influxdb:latest
-    image: influxdb:latest
+    image: arm64v8/influxdb:latest
+    #image: influxdb:latest
     env_file:
       - influxdb.env
     volumes:
