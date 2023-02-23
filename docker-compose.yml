@@ -5,11 +5,11 @@ services:
     image: arm64v8/influxdb:latest
     env_file:
       - influxdb.env
-    command: [sh, -c, "chmod +x ./influxdb/scripts/init.sh"]
     volumes:
       - influxdbv:/var/lib/influxdb2:rw
       - ./influxdb/scripts:/docker-entrypoint-initdb.d
       - ./influxdb/templates:/templates
+    command: [sh, -c, "chmod +x /docker-entrypoint-initdb.d/init.sh"]
     ports:
       - 8086:8086
     restart: always
