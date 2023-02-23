@@ -27,7 +27,7 @@ services:
     build: ./python
     depends_on:
       influxdb:
-        condition: service_completed_successfully
+        condition: service_started
     devices:
       - /dev/gpiomem:/dev/gpiomem
 
