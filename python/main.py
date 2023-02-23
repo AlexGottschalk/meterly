@@ -35,7 +35,7 @@ def main():
     data_point = DataPoint(measurement, location, sensor_type, power_per_turn)
     #endregion
     
-    print("{}\DataPoint(measurement=\"{}\" location=\"{}\" sensor_type=\"{}\", power_per_turn=\"{}\")".format(datetime.datetime.now(), measurement, location, sensor_type, power_per_turn))
+    print("{}\tDataPoint(measurement=\"{}\" location=\"{}\" sensor_type=\"{}\", power_per_turn=\"{}\")".format(datetime.datetime.now(), measurement, location, sensor_type, power_per_turn))
     
     #region Setup the readout of the analog electricity meter
     pin = config.get('marking_counter', 'pin', 17, int)
