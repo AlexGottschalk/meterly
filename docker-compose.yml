@@ -3,7 +3,6 @@ services:
 
   influxdb:
     image: arm64v8/influxdb:latest
-    #image: influxdb:latest
     env_file:
       - influxdb.env
     volumes:
@@ -24,13 +23,13 @@ services:
       - influxdb.env
     restart: always
 
-  # python:
-  #   build: ./python
-  #   depends_on:
-  #     telegraf:
-  #       condition: service_started
-  #   devices:
-  #     - /dev/gpiomem:/dev/gpiomem
+  python:
+    build: ./python
+    depends_on:
+      telegraf:
+        condition: service_started
+    devices:
+      - /dev/gpiomem:/dev/gpiomem
 
 volumes:
   influxdbv:
