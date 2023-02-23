@@ -27,7 +27,7 @@ services:
     build: ./python
     depends_on:
       telegraf:
-        condition: service_started
+        condition: service_completed_successfully
     devices:
       - /dev/gpiomem:/dev/gpiomem
 
