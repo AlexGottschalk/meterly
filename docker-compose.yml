@@ -11,6 +11,11 @@ services:
       - ./influxdb/templates:/templates
     ports:
       - 8086:8086
+    healthcheck:
+      test: "curl -f http://localhost:8086/ping"
+      interval: 10s
+      timeout: 30s
+      retries: 5
     restart: always
 
   telegraf:
@@ -25,11 +30,12 @@ services:
 
   python:
     build: ./python
-    # depends_on:
-    #   influxdb:
-    #     condition: service_started
+    depends_on:
+      influxdb:
+        condition: service_healthy
     devices:
       - /dev/gpiomem:/dev/gpiomem
+    restart: always
 
 volumes:
   influxdbv:
