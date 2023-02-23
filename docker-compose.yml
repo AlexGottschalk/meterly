@@ -2,11 +2,14 @@ version: '3.7'
 services:
 
   influxdb:
-    image: influxdb:latest
+    image: arm64v8/influxdb:latest
+    #image: influxdb:latest
     env_file:
       - influxdb.env
     volumes:
       - influxdbv:/var/lib/influxdb2:rw
+      - ./influxdb/scripts:/docker-entrypoint-initdb.d
+      - ./influxdb/templates:/templates
     ports:
       - 8086:8086
     restart: always
@@ -21,16 +24,13 @@ services:
       - influxdb.env
     restart: always
 
-  python:
-    build: ./python
-    depends_on:
-      telegraf:
-        condition: service_started
-    devices:
-      - /dev/gpiomem:/dev/gpiomem      
-
-networks:
-  monitoring:
+  # python:
+  #   build: ./python
+  #   depends_on:
+  #     telegraf:
+  #       condition: service_started
+  #   devices:
+  #     - /dev/gpiomem:/dev/gpiomem
 
 volumes:
   influxdbv:
@@ -48,6 +48,7 @@ volumes:
 # docker compose up -d --build --remove-orphans
 # docker-compose build --no-cache
 # docker-compose down --volumes
+# docker-compose down -v
 
 # user: pi
 # password: raspberry
