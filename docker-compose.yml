@@ -5,7 +5,7 @@ services:
     image: arm64v8/influxdb:latest
     env_file:
       - influxdb.env
-    command: [sh, -c, "sudo chmod +x ./influxdb/scripts/init.sh"]
+    command: [sh, -c, "chmod +x ./influxdb/scripts/init.sh"]
     volumes:
       - influxdbv:/var/lib/influxdb2:rw
       - ./influxdb/scripts:/docker-entrypoint-initdb.d
