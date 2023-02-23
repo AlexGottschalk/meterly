@@ -9,7 +9,6 @@ services:
       - influxdbv:/var/lib/influxdb2:rw
       - ./influxdb/scripts:/docker-entrypoint-initdb.d
       - ./influxdb/templates:/templates
-    command: [sh, -c, "chmod +x /docker-entrypoint-initdb.d/init.sh"]
     ports:
       - 8086:8086
     restart: always
@@ -49,6 +48,7 @@ volumes:
 # docker-compose build --no-cache
 # docker-compose down --volumes
 # docker-compose down -v
+# chmod +x ./influxdb/scripts/init.sh
 
 # user: pi
 # password: raspberry
