@@ -26,8 +26,8 @@ services:
   python:
     build: ./python
     depends_on:
-      telegraf:
-        condition: service_started
+      influxdb:
+        condition: service_completed_successfully
     devices:
       - /dev/gpiomem:/dev/gpiomem
 
