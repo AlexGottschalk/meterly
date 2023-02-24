@@ -2,7 +2,8 @@ version: '3.7'
 services:
 
   influxdb:
-    image: arm64v8/influxdb:latest
+    image: influxdb:latest
+    #image: arm64v8/influxdb:latest
     env_file:
       - influxdb.env
     volumes:
@@ -20,6 +21,7 @@ services:
 
   telegraf:
     image: telegraf:latest
+    #image: arm64v8/telegraf:latest
     depends_on:
       - influxdb
     volumes:
@@ -33,8 +35,8 @@ services:
     depends_on:
       influxdb:
         condition: service_healthy
-    devices:
-      - /dev/gpiomem:/dev/gpiomem
+    # devices:
+    #   - /dev/gpiomem:/dev/gpiomem
     restart: always
 
 volumes:
