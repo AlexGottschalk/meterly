@@ -40,8 +40,7 @@ def main():
     #region Setup the readout of the analog electricity meter
     pin = config.get('marking_counter', 'pin', 17, int)
     sample_rate = config.get('marking_counter', 'sample_rate', 1000, int)
-    interval = config.get('marking_counter', 'interval', 60, int)
-    counter = MarkingCounter(pin, sample_rate, interval)
+    counter = MarkingCounter(pin, sample_rate)
     #endregion
     
     print("{}\tRaspberryPI(pin=\"{}\" sample_rate=\"{}\" interval=\"{}\")".format(datetime.datetime.now(), pin, sample_rate, interval))

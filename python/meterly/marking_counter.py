@@ -1,7 +1,7 @@
 from gpiozero import LineSensor
 
 class MarkingCounter:
-    def __init__(self, pin, sample_rate=1000, interval=60):
+    def __init__(self, pin, sample_rate=1000):
         self.sensor = LineSensor(pin, sample_rate=sample_rate)
         self.sensor.when_line = self.marking_detected
         self.sensor.when_no_line = self.marking_passed
