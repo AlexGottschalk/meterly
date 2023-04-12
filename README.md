@@ -1,6 +1,8 @@
+
 # Development of an open source solution for reading analogue Ferraris electricity meters, including the creation of a dashboard to visualise consumption.
 
-## *How can a [Raspberry Pi](https://www.raspberrypi.com/) be used to read an analogue Ferraris electricity meter and store and visualise the consumption data?*
+*How can a [Raspberry Pi](https://www.raspberrypi.com/) be used to read an analogue Ferraris electricity meter and store and visualise the consumption data?*
+
 
 ## Hardware used:
 
