@@ -18,15 +18,14 @@ def main():
     #endregion
 
     #region Setup the database connection
-    url = config.get('influxdb', 'url', 'http://influxdb')
-    port = config.get('influxdb', 'port', 8086, int)
+    url = config.get('influxdb', 'url', 'http://influxdb:8086')
     token = config.get('influxdb', 'token', 'my_token')
     org = config.get('influxdb', 'org', 'my_org')
     bucket = config.get('influxdb', 'bucket', 'my_bucket')
-    connection = InfluxDBConnection('{}:{}'.format(url, port), token, org, bucket)
+    connection = InfluxDBConnection(url, token, org, bucket)
     #endregion
     
-    print("{}\tInfluxDBConnection(url=\"{}\" token=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), '{}:{}'.format(url, port), token, org, bucket))
+    print("{}\tInfluxDBConnection(url=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), url, org, bucket))
 
     #region Setup the data (to be written to the database)
     measurement = config.get('data_point', 'measurement', 'my_measurement')
