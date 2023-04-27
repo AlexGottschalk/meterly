@@ -13,7 +13,7 @@ services:
       - ./influxdb/templates:/templates
     ports:
       - ${DOCKER_INFLUXDB_PORT}:${DOCKER_INFLUXDB_PORT}
-    # Periodic check of the health status of the Docker container to ensure accessibility.
+    # Periodically check the health of the Docker container to ensure availability.
     healthcheck:
       test: "curl -f http://localhost:${DOCKER_INFLUXDB_PORT}/ping"
       interval: 10s
@@ -29,8 +29,8 @@ services:
     depends_on:
       influxdb:
         condition: service_healthy
-    # Provides access to the sensor.
-    # Further information: "Docker Access to Raspberry Pi GPIO Pins"
+    # Gives access to the sensor.
+    # More information: "Docker Access to Raspberry Pi GPIO Pins"
     # https://stackoverflow.com/questions/30059784/docker-access-to-raspberry-pi-gpio-pins
     devices:
       - /dev/gpiomem:/dev/gpiomem

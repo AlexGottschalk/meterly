@@ -13,11 +13,11 @@ def main():
     args = parser.parse_args()
     #endregion
 
-    #region Setup the configuration file reader
+    #region Setting up the configuration file reader
     config = ConfigReader(args.config)
     #endregion
 
-    #region Setup the database connection
+    #region Set up the database connection
     url = config.get('influxdb', 'url', 'http://influxdb:8086')
     token = config.get('influxdb', 'token', 'my_token')
     org = config.get('influxdb', 'org', 'my_org')
@@ -27,7 +27,7 @@ def main():
     
     print("{}\tInfluxDBConnection(url=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), url, org, bucket))
 
-    #region Setup the data (to be written to the database)
+    #region Set up the data (to be written to the database)
     measurement = config.get('data_point', 'measurement', 'my_measurement')
     location = config.get('data_point', 'location', 'my_location')
     sensor_type = config.get('data_point', 'sensor_type', 'my_sensor_type')
@@ -37,7 +37,7 @@ def main():
     
     print("{}\tDataPoint(measurement=\"{}\" location=\"{}\" sensor_type=\"{}\", power_per_turn=\"{}\")".format(datetime.datetime.now(), measurement, location, sensor_type, power_per_turn))
     
-    #region Setup the readout of the analog electricity meter
+    #region Setting up the reading of the analogue electricity meter
     pin = config.get('marking_counter', 'pin', 17, int)
     sample_rate = config.get('marking_counter', 'sample_rate', 1000, int)
     counter = MarkingCounter(pin, sample_rate)
@@ -45,14 +45,14 @@ def main():
     
     print("{}\tRaspberryPI(pin=\"{}\" sample_rate=\"{}\")".format(datetime.datetime.now(), pin, sample_rate))
     
-    #region Record function
+    #region Recording function
     def marking_detected(count):
         point = data_point.set_turns(count).get_point()
         connection.write_data(point)
         print("{}\t{}".format(datetime.datetime.now(), point))
     #endregion
     
-    #region Record the number of revolutions    
+    #region Recording of the number of revolutions
     counter.set_on_marking_detected(marking_detected, True)
     #endregion
     

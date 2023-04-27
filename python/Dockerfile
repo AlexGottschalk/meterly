@@ -8,15 +8,15 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /usr/src/app
 
-# Installation of all required libraries.
+# Install the required libraries.
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all required Python files.
+# Copy required Python files.
 COPY ./*conf ./
 COPY ./*py ./
 COPY ./meterly ./meterly
 CMD ["python","main.py"]
 
-# Further information:
+# More information:
 # https://iotbytes.wordpress.com/create-your-first-docker-container-for-raspberry-pi-to-blink-an-led/
