@@ -1,0 +1,363 @@
+apiVersion: influxdata.com/v2alpha1
+kind: Label
+metadata:
+    name: wizardly-visvesvaraya-483001
+spec:
+    color: '#E85B1C'
+    name: meterly
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: annoying-dubinsky-483009
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    name: power_consumption_aggregated_hourly
+    retentionRules:
+        - everySeconds: 2.592e+06
+          type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: boring-darwin-483015
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    name: power_consumption_raw
+    retentionRules:
+        - everySeconds: 259200
+          type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: distracted-jennings-483011
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    name: power_consumption_aggregated_yearly
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: exciting-turing-483005
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    name: power_consumption_aggregated_daily
+    retentionRules:
+        - everySeconds: 3.1536e+07
+          type: expire
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Bucket
+metadata:
+    name: kind-euler-48300d
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    name: power_consumption_aggregated_monthly
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Task
+metadata:
+    name: dangling-meitner-483019
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    cron: 0 0 1 1 *
+    name: 'Task: Aggregate data – yearly'
+    query: |-
+        import "date"
+
+
+
+
+        sourceBucket = "power_consumption_aggregated_monthly"
+        targetBucket = "power_consumption_aggregated_yearly"
+
+        unit = 1y
+        stop = date.truncate(t: now(), unit: unit)
+        start = date.sub(d: unit, from: stop)
+
+
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "turns")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: sum, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "power_per_turn")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: mean, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Task
+metadata:
+    name: distracted-davinci-48301d
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    cron: 0 * * * *
+    name: 'Task: Aggregate data – hourly'
+    query: |-
+        import "date"
+
+
+
+        sourceBucket = "power_consumption_raw"
+        targetBucket = "power_consumption_aggregated_hourly"
+
+        unit = 1h
+        stop = date.truncate(t: now(), unit: unit)
+        start = date.sub(d: unit, from: stop)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "turns")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: sum, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "power_per_turn")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: mean, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Task
+metadata:
+    name: gallant-kare-483025
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    cron: 0 0 1 * *
+    name: 'Task: Aggregate data – montly'
+    query: |-
+        import "date"
+
+
+
+
+        sourceBucket = "power_consumption_aggregated_daily"
+        targetBucket = "power_consumption_aggregated_monthly"
+
+        unit = 1mo
+        stop = date.truncate(t: now(), unit: unit)
+        start = date.sub(d: unit, from: stop)
+
+
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "turns")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: sum, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "power_per_turn")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: mean, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Task
+metadata:
+    name: goofy-wu-483021
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    cron: 0 0 * * *
+    name: 'Task: Aggregate data – daily'
+    query: |-
+        import "date"
+
+
+
+        sourceBucket = "power_consumption_aggregated_hourly"
+        targetBucket = "power_consumption_aggregated_daily"
+
+        unit = 1d
+        stop = date.truncate(t: now(), unit: unit)
+        start = date.sub(d: unit, from: stop)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "turns")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: sum, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+
+        from(bucket: sourceBucket)
+            |> range(start: start, stop: stop)
+            |> filter(fn: (r) => r["_field"] == "power_per_turn")
+            |> truncateTimeColumn(unit: unit)
+            |> aggregateWindow(every: unit, fn: mean, createEmpty: false)
+            |> truncateTimeColumn(unit: unit)
+            |> to(bucket: targetBucket)
+---
+apiVersion: influxdata.com/v2alpha1
+kind: Dashboard
+metadata:
+    name: clever-heyrovsky-883001
+spec:
+    associations:
+        - kind: Label
+          name: wizardly-visvesvaraya-483001
+    charts:
+        - colors:
+            - hex: '#32B08C'
+              id: base
+              name: viridian
+              type: text
+            - hex: '#7CE490'
+              id: oG7XKVFLeEfnQzuH6ChI-
+              name: honeydew
+              type: text
+              value: 125
+            - hex: '#FFD255'
+              id: nlZUbYQWAtWj19l9knOJC
+              name: thunder
+              type: text
+              value: 250
+            - hex: '#F48D38'
+              id: qepP5sJvB9DULx_lxuNOr
+              name: tiger
+              type: text
+              value: 500
+            - hex: '#F95F53'
+              id: VSrRtDhmJZCfsjEsx-Cg4
+              name: curacao
+              type: text
+              value: 1000
+            - hex: '#BF3D5E'
+              id: 5uDFDKIuS-sWQoUn0M7iK
+              name: ruby
+              type: text
+              value: 2000
+          decimalPlaces: 2
+          height: 3
+          kind: Single_Stat
+          name: Current power consumption
+          queries:
+            - query: "lastElapsedTime = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: -1d)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"turns\")\r\n    |> top(n: 2, columns: [\"_time\"])\r\n    |> sort(columns: [\"_time\"])\r\n    |> elapsed(unit: 1ms)\r\n    |> set(key: \"_field\", value: \"elapsed\")\r\n    |> map(fn: (r) => ({ r with _value: r.elapsed }))\r\n    |> drop(columns: [\"elapsed\"])\r\n\r\nlastMeasurement = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: -1d)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n    |> last()\r\n\r\nunion(tables: [lastElapsedTime, lastMeasurement])\r\n    |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n    |> map(fn: (r) => ({r with _value: float(v: r.turns) / float(v: r.power_per_turn) * float(v: 360000) / float(v: r.elapsed) * float(v: 1000) }))"
+          staticLegend: {}
+          suffix: ' W'
+          width: 3
+        - colors:
+            - hex: '#32B08C'
+              id: base
+              name: viridian
+              type: text
+            - hex: '#FFD255'
+              id: gZN1CK72n3exhh8y4-cL3
+              name: thunder
+              type: text
+              value: 4
+            - hex: '#7CE490'
+              id: p3aLpgp9vkoHbu-DA8Rc8
+              name: honeydew
+              type: text
+              value: 2
+            - hex: '#F48D38'
+              id: PxlorLlY0ezdKoxAiLU8O
+              name: tiger
+              type: text
+              value: 6
+            - hex: '#F95F53'
+              id: twJ4-US-sTmpZ5mF8lAfL
+              name: curacao
+              type: text
+              value: 8
+            - hex: '#BF3D5E'
+              id: tmt-m51pdvkXWhoPTwAfr
+              name: ruby
+              type: text
+              value: 10
+          decimalPlaces: 2
+          height: 3
+          kind: Single_Stat
+          name: Total power consumption today
+          queries:
+            - query: "import \"date\"\r\nimport \"math\"\r\n\r\ntoday = date.truncate(t: now(), unit: 1d)\r\n\r\nsumTurns = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: today)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"turns\")\r\n    |> aggregateWindow(every: inf, fn: sum, createEmpty: false)\r\n    //|> yield(name: \"turns\")\r\n\r\nmeanPowerPerTurn = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: today)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"power_per_turn\")\r\n    |> aggregateWindow(every: inf, fn: mean, createEmpty: false)\r\n    //|> yield(name: \"power_per_turn\")\r\n\r\ntotalPowerConsumptionToday = union(tables: [sumTurns, meanPowerPerTurn])\r\n    |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n    |> set(key: \"_field\", value: \"total_power_consumption_today\")\r\n    |> map(fn: (r) => ({ r with _value: float(v: r.turns) / float(v: r.power_per_turn)}))\r\n    |> yield()\r\n    //|> map(fn: (r) => ({ r with _value: math.round(x: r._value * float(v: 1000)) / float(v: 1000)}))"
+          staticLegend: {}
+          suffix: ' kWh'
+          width: 3
+          yPos: 3
+        - axes:
+            - base: "10"
+              name: x
+              scale: linear
+            - base: "10"
+              name: "y"
+              scale: linear
+              suffix: ' W'
+          colorizeRows: true
+          colors:
+            - hex: '#31C0F6'
+              id: R7L7hjujGsQb8jbfArj0t
+              name: Nineteen Eighty Four
+              type: scale
+            - hex: '#A500A5'
+              id: VJ8Ra2whqbrryi-lOMttH
+              name: Nineteen Eighty Four
+              type: scale
+            - hex: '#FF7E27'
+              id: jrPFuUM3aplFivOBJXodo
+              name: Nineteen Eighty Four
+              type: scale
+          geom: monotoneX
+          height: 6
+          hoverDimension: auto
+          kind: Xy
+          legendColorizeRows: true
+          legendHide: true
+          legendOpacity: 1
+          legendOrientationThreshold: 1e+08
+          name: Current power consumption
+          opacity: 1
+          orientationThreshold: 1e+08
+          position: overlaid
+          queries:
+            - query: "elapsedTime = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: -1d)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n    |> filter(fn: (r) => r[\"_field\"] == \"turns\")\r\n    |> sort(columns: [\"_time\"])\r\n    |> elapsed(unit: 1ms)\r\n    |> set(key: \"_field\", value: \"elapsed\")\r\n    |> map(fn: (r) => ({ r with _value: r.elapsed }))\r\n    |> drop(columns: [\"elapsed\"])\r\n\r\nmeasurement = from(bucket: \"power_consumption_raw\")\r\n    |> range(start: -1d)\r\n    |> filter(fn: (r) => r[\"_measurement\"] == \"electricity_meter\")\r\n    |> filter(fn: (r) => r[\"location\"] == \"home\")\r\n\r\nunion(tables: [elapsedTime, measurement])\r\n    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n    |> pivot(rowKey: [\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\r\n    |> map(fn: (r) => ({r with _value: float(v: r.turns) / float(v: r.power_per_turn) * float(v: 360000) / float(v: r.elapsed) * float(v: 1000) }))\r\n    |> filter(fn: (r) => r._value >= 0)"
+          shade: true
+          staticLegend:
+            colorizeRows: true
+            opacity: 1
+            orientationThreshold: 1e+08
+            widthRatio: 1
+          width: 9
+          widthRatio: 1
+          xCol: _time
+          xPos: 3
+          yCol: _value
+          yTickStep: 125
+    description: Display of the current power consumption and the total consumption on the current day.
+    name: Power consumption
