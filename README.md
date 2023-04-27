@@ -66,16 +66,16 @@ or [Windows](https://www.raspberrypi.com/documentation/computers/remote-access.h
 ***
 
 ### Save template changes:
-To save changes to InfluxDB components, i.e. dashboards, tasks and so on, you need to export them as a template. When the container is reset, the template can then be loaded initially using the [init script](https://github.com/AlexGottschalk/emit/blob/main/influxdb/scripts/init.sh).
+To save changes to InfluxDB components, i.e. dashboards, tasks and so on, you need to export them as a template. When the container is reset, the template can then be initially loaded using the [init script](https://github.com/AlexGottschalk/emit/blob/main/influxdb/scripts/init.sh).
 
 1. Open the terminal of the InfluxDB docker container.
-2. Create a configuration for CLI:  
+2. Create a configuration for the CLI:  
 ```influx config create --config-name your_config --host-url http://localhost:8086 --org your_org --token your_token --active```
-3. Export (Buckets, Tasks, Dashboards, …) as a new template:  
+3. Export (buckets, tasks, dashboards, …) as a new template:  
 ```influx export all -o your_org -t your_token -f ~/your_template.yml --filter=labelName=your_label```
-4. Find out your InfluxDB docker container ID:  
+4. Get your InfluxDB docker container ID:  
 ```docker container ls```
-5. Retrieve the exported template file from the InfluxDB docker container:  
+5. Get the exported template file from the InfluxDB docker container:  
 ```docker cp your_container_id:/root/your_template.yml ./```
 
 
