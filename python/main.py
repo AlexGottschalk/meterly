@@ -43,7 +43,7 @@ def main():
     counter = MarkingCounter(pin, sample_rate)
     #endregion
     
-    print("{}\tRaspberryPI(pin=\"{}\" sample_rate=\"{}\" interval=\"{}\")".format(datetime.datetime.now(), pin, sample_rate, interval))
+    print("{}\tRaspberryPI(pin=\"{}\" sample_rate=\"{}\")".format(datetime.datetime.now(), pin, sample_rate))
     
     #region Record function
     def marking_detected(count):
