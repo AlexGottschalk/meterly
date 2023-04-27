@@ -4,7 +4,7 @@ services:
 
   influxdb:
     # Use the appropriate Docker Hub repository (https://hub.docker.com/_/influxdb) for your CPU architecture.
-    image: arm64v8/influxdb:${DOCKER_VERSION_INFLUXDB}
+    image: arm64v8/influxdb:latest
     env_file:
       - .env
     volumes:

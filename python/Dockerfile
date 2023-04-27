@@ -1,5 +1,5 @@
 # Use the appropriate Docker Hub repository (https://hub.docker.com/_/python) for your CPU architecture.
-FROM arm64v8/python:${DOCKER_VERSION_PYTHON}
+FROM arm64v8/python:3-bullseye
 
 # PYTHONUNBUFFERED with a non-zero value sends Python output
 # directly to the terminal without buffering, allowing real-time
