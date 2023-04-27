@@ -1,3 +1,4 @@
+import os
 import time
 import random
 import datetime
@@ -7,8 +8,8 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 
 bucket =    "power_consumption_raw"
 org =       "data_source"
-token =     "KYw6fFH7RpP1MH6Pq8Dex99AAuuTK8dh5XrqdAE_5Sh80nQBrJb2VIFUlR5nCs1H_34-RW9u7sW_S5QKwQD4RQ=="
-url =       "http://influxdb:8086"
+token =     os.environ['DOCKER_INFLUXDB_INIT_ADMIN_TOKEN']
+url =       "http://influxdb:" + os.environ['DOCKER_INFLUXDB_PORT']
 
 from threading import Timer
 

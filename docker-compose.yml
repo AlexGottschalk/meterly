@@ -4,18 +4,18 @@ services:
 
   influxdb:
     # Use the appropriate Docker Hub repository (https://hub.docker.com/_/influxdb) for your CPU architecture.
-    image: arm64v8/influxdb:latest
+    image: arm64v8/influxdb:${DOCKER_VERSION_INFLUXDB}
     env_file:
-      - influxdb.env
+      - .env
     volumes:
       - influxdbv:/var/lib/influxdb2:rw
       - ./influxdb/scripts:/docker-entrypoint-initdb.d
       - ./influxdb/templates:/templates
     ports:
-      - 8086:8086
+      - ${DOCKER_INFLUXDB_PORT}:${DOCKER_INFLUXDB_PORT}
     # Periodic check of the health status of the Docker container to ensure accessibility.
     healthcheck:
-      test: "curl -f http://localhost:8086/ping"
+      test: "curl -f http://localhost:${DOCKER_INFLUXDB_PORT}/ping"
       interval: 10s
       timeout: 30s
       retries: 5
@@ -24,6 +24,8 @@ services:
 
   python:
     build: ./python
+    env_file:
+      - .env
     depends_on:
       influxdb:
         condition: service_healthy
