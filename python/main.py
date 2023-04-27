@@ -26,7 +26,7 @@ def main():
     connection = InfluxDBConnection('{}:{}'.format(url, port), token, org, bucket)
     #endregion
     
-    print("{}\tInfluxDBConnection(url=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), '{}:{}'.format(url, port), org, bucket))
+    print("{}\tInfluxDBConnection(url=\"{}\" token=\"{}\" org=\"{}\" bucket=\"{}\")".format(datetime.datetime.now(), '{}:{}'.format(url, port), token, org, bucket))
 
     #region Setup the data (to be written to the database)
     measurement = config.get('data_point', 'measurement', 'my_measurement')
