@@ -1,6 +1,0 @@
-from(bucket: "power_consumption_aggregated_per_minute")
-    |> range(start: -1d)
-    |> filter(fn: (r) => r["_measurement"] == "electricity_meter")
-    |> filter(fn: (r) => r["location"] == "home")
-    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-    |> map(fn: (r) => ({r with _value: float(v: r.turns) / float(v: r.power_per_turn) * float(v: 60) }))
