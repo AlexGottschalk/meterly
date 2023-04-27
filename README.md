@@ -24,3 +24,9 @@ or [Windows](https://www.raspberrypi.com/documentation/computers/remote-access.h
 4. Install [Docker on your Raspberry Pi](https://raspberrytips.com/docker-on-raspberry-pi/).
 
 
+
+7. Go to the desired directory
+8. Make the InfluxDB init script executable (to be on the safe side):
+    chmod +x ./influxdb/scripts/init.sh
+9. Start the container structure:
+    docker compose up --build
