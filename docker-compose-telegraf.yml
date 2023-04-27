@@ -13,7 +13,6 @@ services:
       - ./influxdb/templates:/templates
     ports:
       - 8086:8086
-    # Periodic check of the health status of the Docker container to ensure accessibility.
     healthcheck:
       test: "curl -f http://localhost:8086/ping"
       interval: 10s
@@ -22,6 +21,22 @@ services:
     restart: always
 
 
+  telegraf:
+    # Use the appropriate Docker Hub repository (https://hub.docker.com/_/telegraf/) for your CPU architecture.
+    image: arm64v8/telegraf:latest
+    depends_on:
+      - influxdb
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    env_file:
+      - influxdb.env
+    restart: always
+    # Further information: "Running InfluxDB 2.0 and Telegraf Using Docker"
+    # (https://www.influxdata.com/blog/running-influxdb-2-0-and-telegraf-using-docker/)
+    # Further information: "Install Grafana/InfluxDB/Telegraf using Docker Compose"
+    # (https://dev.to/project42/install-grafana-influxdb-telegraf-using-docker-compose-56e9)
+    
+
   python:
     build: ./python
     depends_on:
@@ -29,7 +44,7 @@ services:
         condition: service_healthy
     # Provides access to the sensor.
     # Further information: "Docker Access to Raspberry Pi GPIO Pins"
-    # https://stackoverflow.com/questions/30059784/docker-access-to-raspberry-pi-gpio-pins
+    # (https://stackoverflow.com/questions/30059784/docker-access-to-raspberry-pi-gpio-pins)
     devices:
       - /dev/gpiomem:/dev/gpiomem
     restart: always
