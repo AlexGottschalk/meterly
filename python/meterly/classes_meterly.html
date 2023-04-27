@@ -1,0 +1,44 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <div class="mermaid">
+    
+        classDiagram
+          class ConfigReader {
+            config : ConfigParser
+            config_file
+            get(section, key, fallback, type)
+          }
+          class DataPoint {
+            location
+            measurement
+            point : Point
+            power_per_turn
+            sensor_type
+            get_point()
+            set_turns(turns)
+          }
+          class InfluxDBConnection {
+            bucket : str
+            client : InfluxDBClient
+            org
+            token
+            url
+            write_api : WriteApi
+            write_data(data)
+          }
+          class MarkingCounter {
+            count : int
+            on_marking_detected : NoneType
+            on_marking_passed : NoneType
+            sensor : LineSensor
+            get_count()
+            marking_detected()
+            marking_passed()
+            set_on_marking_detected(fn, reset_count)
+            set_on_marking_passed(fn, reset_count)
+          }
+  
+       </div>
+  </body>
+</html>
