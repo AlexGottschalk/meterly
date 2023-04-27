@@ -26,6 +26,7 @@ services:
     build: ./python
     env_file:
       - .env
+      - py.env
     depends_on:
       influxdb:
         condition: service_healthy
