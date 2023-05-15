@@ -54,14 +54,16 @@ As I have not yet found a way to pass the environment variables from the [.env](
 using [Linux, Mac OS](https://www.raspberrypi.com/documentation/computers/remote-access.html#secure-shell-from-linux-or-mac-os)
 or [Windows](https://www.raspberrypi.com/documentation/computers/remote-access.html#secure-shell-from-windows-10).
 4. Install [Git](https://github.com/git-guides/install-git).
-5. Install [Docker on your Raspberry Pi](https://raspberrytips.com/docker-on-raspberry-pi/).
-6. Clone or download this repository to a directory of your choice.
+5. Install [Docker on your Raspberry Pi](https://raspberrytips.com/docker-on-raspberry-pi/) (or via the [official installation guide](https://docs.docker.com/get-docker/)).
+6. Clone (or download) this repository to a directory of your choice:  
+```git clone https://github.com/AlexGottschalk/meterly.git```
 7. Navigate to that directory.
 8. Make the InfluxDB init script executable (just to be on the safe side):  
 ```chmod +x ./influxdb/scripts/init.sh```  
 **Note**: If this step is skipped, the InfluxDB initialisation script may not run and the template initialisation may fail.
 9. Start the container build:   
 ```docker compose up --build```
+10. You did it. Open the InfluxDB GUI in a browser of your choice.
 
 ***
 
